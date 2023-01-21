@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.game.entities.Game;
 import com.skilldistillery.game.repositories.GameRepository;
+
 @Service
 public class GameServiceImpl implements GameService {
-@Autowired
+	@Autowired
 	private GameRepository gameRepo;
-	
+
 	@Override
 	public List<Game> allGames() {
-		
+
 		return gameRepo.findAll();
 	}
 
@@ -23,7 +24,7 @@ public class GameServiceImpl implements GameService {
 	public Game getGame(int gameId) {
 		Optional<Game> getGame = gameRepo.findById(gameId);
 		Game game = null;
-		if(getGame.isPresent()) {
+		if (getGame.isPresent()) {
 			game = getGame.get();
 		}
 		return game;
@@ -31,20 +32,40 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public Game create(Game gameNew) {
-		// TODO Auto-generated method stub
-		return null;
+		return gameRepo.saveAndFlush(gameNew);
 	}
 
 	@Override
-	public Game update(int gameId, Game updateGame) {
-		// TODO Auto-generated method stub
-		return null;
+	public Game update(int id, Game game) {
+		Game update = getGame(id);
+		update.setName(game.getName());
+		update.setPlayerMax(game.getPlayerMax());
+		update.setPlayerMin(game.getPlayerMin());
+		update.setDescription(game.getDescription());
+		return gameRepo.save(update);
 	}
 
 	@Override
-	public boolean deleteById(int gameId) {
+	public void deleteById(int gameId) {
 		// TODO Auto-generated method stub
-		return false;
+		gameRepo.deleteById(gameId);
+	}
+
+	@Override
+	public List<Game> searchByKeywordInNameOrDescription(String keyword) {
+		List<Game> searchName = gameRepo.findByNameContaining(keyword);
+		searchName.addAll(gameRepo.findByDescriptionContaining(keyword));
+		return searchName;
+	}
+
+	@Override
+	public List<Game> searchByPlayerMin(int min) {
+		return gameRepo.findByPlayerMinGreaterThanEqual(min);
+	}
+
+	@Override
+	public List<Game> searchByPlayerMax(int max) {
+		return gameRepo.findByPlayerMaxLessThanEqual(max);
 	}
 
 }
