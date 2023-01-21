@@ -45,13 +45,14 @@ public class GameController {
 		return newGame;
 	}
 	@PutMapping("games/{id}")
-	public Game updateGame(@PathVariable("id") int id, @RequestBody Game game) {
+	public Game updateGame(@PathVariable("id") int id, @RequestBody Game game, HttpServletRequest req, HttpServletResponse res) {
 		Game update = null;
 		try {
 			update = gameService.update(id, game);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.err.println(e);
+			
 		}
 		return update;
 	}
