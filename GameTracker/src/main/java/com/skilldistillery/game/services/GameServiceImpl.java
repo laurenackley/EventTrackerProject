@@ -46,9 +46,14 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void deleteById(int gameId) {
-		// TODO Auto-generated method stub
-		gameRepo.deleteById(gameId);
+	public boolean deleteById(int gameId) {
+		Game gameToDelete = getGame(gameId);
+		if (gameToDelete != null) {
+			gameRepo.delete(gameToDelete);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -61,11 +66,6 @@ public class GameServiceImpl implements GameService {
 	@Override
 	public List<Game> searchByPlayerMin(int min) {
 		return gameRepo.findByPlayerMinGreaterThanEqual(min);
-	}
-
-	@Override
-	public List<Game> searchByPlayerMax(int max) {
-		return gameRepo.findByPlayerMaxLessThanEqual(max);
 	}
 
 }

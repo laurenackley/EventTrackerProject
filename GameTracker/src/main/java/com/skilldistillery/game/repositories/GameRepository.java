@@ -10,5 +10,4 @@ public interface GameRepository extends JpaRepository<Game, Integer> {
 	List<Game> findByNameContaining(String keyword);
 	List<Game> findByDescriptionContaining(String keyword);
 	List<Game> findByPlayerMinGreaterThanEqual(int min);
-	List<Game> findByPlayerMaxLessThanEqual(int max);
 	}

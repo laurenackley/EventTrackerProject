@@ -24,54 +24,100 @@ public class GameController {
 
 	@Autowired
 	private GameService gameService;
-	
+
 	@GetMapping("games")
-	public List<Game> listAllGames(){
+	public List<Game> listAllGames() {
 		return gameService.allGames();
 	}
-	
+
 	@GetMapping("games/{id}")
-	public Game findById(@PathVariable("id")int id) {
-		return gameService.getGame(id);
+	public Game findById(@PathVariable("id") int id,HttpServletRequest req, HttpServletResponse res) {
+		Game game = gameService.getGame(id);
+		if(game == null) {
+			res.setStatus(404);
+		}
+		return game;
 	}
+
 	@PostMapping("games/create")
 	public Game createNew(@RequestBody Game game, HttpServletRequest req, HttpServletResponse res) {
 		Game newGame = null;
 		try {
-		newGame= gameService.create(game);
-	} catch (Exception e) {
-		System.err.println(e);
-		}	
+			newGame = gameService.create(game);
+			res.setStatus(201);
+		} catch (Exception e) {
+			System.err.println(e);
+			res.setStatus(404);
+		}
 		return newGame;
 	}
+
 	@PutMapping("games/{id}")
-	public Game updateGame(@PathVariable("id") int id, @RequestBody Game game, HttpServletRequest req, HttpServletResponse res) {
+	public Game updateGame(@PathVariable("id") int id, @RequestBody Game game, HttpServletRequest req,
+			HttpServletResponse res) {
 		Game update = null;
 		try {
 			update = gameService.update(id, game);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.err.println(e);
-			
+			res.setStatus(404);
 		}
 		return update;
 	}
-	
+
 	@DeleteMapping("games/{id}")
-	public void deleteGame(@PathVariable("id") int id) {
-		gameService.deleteById(id);
+	public void deleteGame(@PathVariable("id") int id, HttpServletRequest req, HttpServletResponse res) {
+		try {
+			if (gameService.deleteById(id)) {
+				res.setStatus(204);
+			} else {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			System.err.println(e);
+			res.setStatus(400);
+
+		}
+
 	}
+
 	@GetMapping("games/search/{keyword}")
-	public List<Game> findByKeyword(@PathVariable("keyword")String keyword){
-		return gameService.searchByKeywordInNameOrDescription(keyword);
+	public List<Game> findByKeyword(@PathVariable("keyword") String keyword, HttpServletRequest req,
+			HttpServletResponse res) {
+		try {
+			List<Game> keywordFind = gameService.searchByKeywordInNameOrDescription(keyword);
+			if (keywordFind.isEmpty()) {
+				res.setStatus(404);
+			} else {
+				res.setStatus(400);
+			}
+			return keywordFind;
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+
+		}
+
+		return null;
 	}
+
 	@GetMapping("games/search/player/min/{min}")
-	public List<Game> findGamesByPlayerMin(@PathVariable("min") int min){
-		return gameService.searchByPlayerMin(min);
+	public List<Game> findGamesByPlayerMin(@PathVariable("min") int min, HttpServletRequest req,
+			HttpServletResponse res) {
+		try {
+			List<Game> minPlayer = gameService.searchByPlayerMin(min);
+			if (!minPlayer.isEmpty()) {
+				res.setStatus(200);
+			} else if (minPlayer.isEmpty()) {
+				res.setStatus(404);
+			}
+			return minPlayer;
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+		}
+		return null;
 	}
-	
-	@GetMapping("games/search/player/max/{max}")
-	public List<Game> findGamesByPlayerMax(@PathVariable("max") int max){
-		return gameService.searchByPlayerMax(max);
-	}
+
 }
