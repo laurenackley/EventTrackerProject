@@ -39,7 +39,7 @@ public class GameController {
 		return game;
 	}
 
-	@PostMapping("games/create")
+	@PostMapping("games")
 	public Game createNew(@RequestBody Game game, HttpServletRequest req, HttpServletResponse res) {
 		Game newGame = null;
 		try {
