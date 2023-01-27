@@ -73,6 +73,9 @@ USE `gamedb`;
 INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (1, 'Settlers of Catan', 'Settle', 3, 6);
 INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (2, 'Gin', 'Card game', 2, 4);
 INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (3, 'Demeo', 'Online DND style', 1, 4);
+INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (4, 'Magic: The Gathering', 'Table top and collectable card game', 2, 4);
+INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (5, 'Mario Party', 'Switch party game', 1, 4);
+INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (6, 'UnRailed!', 'Switch game where you keep building train tracks and manage a train to reach a destination', 1, 4);
 
 COMMIT;
 
