@@ -31,9 +31,9 @@ public class GameController {
 	}
 
 	@GetMapping("games/{id}")
-	public Game findById(@PathVariable("id") int id,HttpServletRequest req, HttpServletResponse res) {
+	public Game findById(@PathVariable("id") int id, HttpServletRequest req, HttpServletResponse res) {
 		Game game = gameService.getGame(id);
-		if(game == null) {
+		if (game == null) {
 			res.setStatus(404);
 		}
 		return game;

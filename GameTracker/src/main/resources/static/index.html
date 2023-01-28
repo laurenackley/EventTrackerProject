@@ -20,14 +20,23 @@
 <form name="delete">
     <button type="button" name="delete">Delete</button>
 </form>
-<form name="update">
+<form name="update"> <button type="button" name="update">Update</button></form>
+<div id="updateGameDiv" style="display:none">
+<form name="updateGame">
+    <label for="name">Updated Name:</label><input type="text" name="name"><br>
+    <label for="description">Updated Description:</label><textarea rows="4" cols="50" name="description"></textarea><br>
+    <label for="playerMin">Updated Player Minimum:</label><input type="number" name="playerMin"><br>
+    <label for="playerMax">Updated Player Maximum:</label><input type="number" name="playerMax"><br>
     <button type="button" name="update">Update</button>
 </form>
+</div>
 </div>
 
 <div id ="gameListDetails"></div>
 
 <form name="createGame">
+<br>
+<br>
     <label for="name">Name:</label><input type="text" name="name"><br>
     <label for="description">Description:</label><textarea rows="4" cols="50" placeholder="Put the game description here"
     name="description"></textarea><br>
