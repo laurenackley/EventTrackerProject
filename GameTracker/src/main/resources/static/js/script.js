@@ -26,15 +26,33 @@ function init() {
 				name: passedName,
 				description: passedDescription,
 				playerMin: passedPlayerMin,
-				playerMax: passedPlayerMax,
+				playerMax: passedPlayerMax
 			};
 			createGame(newGame);
 		}
 	});
+	document.searchKeyword.search.addEventListener('click', function(event) {
+		event.preventDefault();
+		let keyword = document.searchKeyword.keyword.value;
+		console.log(keyword);
+		searchKeyword(keyword);
+	});
 }
 
+function searchKeyword(keyword) {
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET", "api/games/keyword" + keyword);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			gameResults = JSON.parse(xhr.responseText);
+			displayGameInfo(gameResults);
+		}
+	}
+	xhr.send();
+}
+
+
 function loadGames() {
-	//AJAX
 	let xhr = new XMLHttpRequest();
 	xhr.open("GET", "api/games");
 	xhr.onreadystatechange = function() {
@@ -61,6 +79,9 @@ function deleteGame(gameId) {
 				//gameList = JSON.parse(xhr.responseText);
 				//	console.log("The games are: "+ gameList);
 				loadGames();
+				gameList = document.getElementById("gameList");
+				gameList.style.display = "none";
+
 				// displayGameInfo();
 			} else {
 				//error
@@ -71,7 +92,8 @@ function deleteGame(gameId) {
 }
 
 function createGame(game) {
-	console.log(game);
+	console.log(game + "game id" + game.id);
+
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", "api/games", true);
 	xhr.setRequestHeader("Content-type", "application/json"); // Specify JSON request body
@@ -90,24 +112,31 @@ function createGame(game) {
 	xhr.send(userObjectJson);
 }
 
-function addUpdatedGame(gameId) {
-	let passedName = document.updateGame.name.value;
-	let passedDescription = document.updateGame.description.value;
-	let passedPlayerMin = document.updateGame.playerMin.value;
-	let passedPlayerMax = document.updateGame.playerMax.value;
-	let updateGame = {
-		name: passedName,
-		description: passedDescription,
-		playerMin: passedPlayerMin,
-		playerMax: passedPlayerMax,
-	};
-
+function addUpdatedGame(gameId, game) {
+	console.log(gameId);
 	document.updateGame.update.addEventListener('click', function() {
-		editGame(gameId, updateGame);
+		let passedName = document.updateGame.name.value;
+		let passedDescription = document.updateGame.description.value;
+		let passedPlayerMin = document.updateGame.playerMin.value;
+		let passedPlayerMax = document.updateGame.playerMax.value;
+		console.log("name passed in ****" + passedName)
+		console.log("description passed in ****" + passedDescription)
+		console.log("player min passed in ****" + passedPlayerMin)
+		console.log("player max passed in ****" + passedPlayerMax)
+		console.log("typeof passsed playerMax" + typeof passedPlayerMin);
+
+		game.name = passedName;
+		game.description = passedDescription;
+		game.playerMin = passedPlayerMin;
+		console.log("typeof game.playerMin" + typeof game.playerMin);
+		game.playerMax = passedPlayerMax;
+		editGame(gameId, game);
+		updateGame = document.getElementById('updateGameDiv')
+		updateGame.style.display = "none";
 	})
 }
 
-function editGame(gameId, updateGame) {
+function editGame(gameId, game) {
 	let xhr = new XMLHttpRequest();
 	xhr.open('PUT', 'api/games/' + gameId, true);
 	xhr.setRequestHeader("Content-type", "application/json");
@@ -118,10 +147,9 @@ function editGame(gameId, updateGame) {
 				loadGames();
 				displayGameInfo(data);
 			}
-
 		}
 	}
-	let userObjectJson = JSON.stringify(updateGame);
+	let userObjectJson = JSON.stringify(game);
 	xhr.send(userObjectJson);
 }
 
@@ -160,13 +188,12 @@ function displayGameInfo(game) {
 			let id = game.id;
 			console.log('The id is: ' + id);
 			deleteGame(id);
-			gameList.style.display = "none";
 		});
 		document.update.addEventListener('click', function(e) {
 			e.preventDefault();
 			updateGame = document.getElementById('updateGameDiv')
 			updateGame.style.display = "inline";
-			addUpdatedGame(game);
+			addUpdatedGame(game.id, game);
 		})
 	}
 }
