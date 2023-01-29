@@ -13,6 +13,7 @@ This is the beginning of a project where you would be able to keep a log of game
 The application you are able to view a list of games. When you click on one of the games it then populates the information in a new div. Here you have the option to either delete the game or update it.
 In the next div you are able to create a new game with a name, description, player minimum and player maximum. It is then added to the game list where you can click on it and view the information.
 Next section you are able to search by a keyword in the game's description. For example: if you search the term "party" then Mario Party will be returned with the description, player minimum and maximum.
+For the data aggregation portion of the homework, I added a feature where it will tell you the name of the game with the longest description. As you add new games, or change the description, it will update with the name of the game and it's total character count.
 
 # Technologies Used
 - REST
@@ -23,3 +24,5 @@ Next section you are able to search by a keyword in the game's description. For 
 - JSON
 - Java
 - SpringBoot
+- Javascript
+- VS Code

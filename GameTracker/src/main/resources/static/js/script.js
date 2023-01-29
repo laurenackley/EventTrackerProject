@@ -41,6 +41,11 @@ function init() {
 }
 
 
+
+
+
+
+
 function addFoundResults(gameResults) {
 	for( let game of gameResults){
 	let searchDiv = document.getElementById("searchKeywordDiv");
@@ -80,6 +85,36 @@ function searchKeyword(keyword) {
 	xhr.send();
 }
 
+function organize(gameList){
+//iterate over list but keep the game with the longest description 
+//	for(let game of gameList){
+//		let previous = 0;
+//		if(game.description.length > previous){
+//			previous = game.description.length;
+//		}
+//		
+//	console.log(previous);
+//	}
+	let largest = 0;
+	let game;
+for(let i = 0; i < gameList.length; i++){
+	if(largest < gameList[i].description.length){
+		largest = gameList[i].description.length;
+		game = gameList[i];
+	}
+}
+console.log(game);
+
+	let dataAgg = document.getElementById('organize');
+	dataAgg.innerHTML = '';
+	let winner = document.createElement('h1');
+	winner.textContent = game.name;
+	dataAgg.appendChild(winner);
+	let winnerLength = document.createElement('h3');
+	winnerLength.textContent = "Character count: "+game.description.length;
+	dataAgg.appendChild(winnerLength);
+
+}
 
 function loadGames() {
 	let xhr = new XMLHttpRequest();
@@ -89,6 +124,7 @@ function loadGames() {
 			if (xhr.status === 200) {
 				gameList = JSON.parse(xhr.responseText);
 				displayGames(gameList);
+				organize(gameList);
 			} else {
 				//TODO - display an error somehwere ?
 			}
