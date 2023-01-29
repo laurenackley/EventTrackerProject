@@ -139,8 +139,8 @@ function addUpdatedGame(gameId, game) {
 		game.playerMax = passedPlayerMax;
 		console.log("calling edit game with gameId: " + gameId + " game: " + game);
 		editGame(gameId, game);
-		updateGame = document.getElementById('updateGameDiv')
-		updateGame.style.display = "none";
+	//	updateGame = document.getElementById('updateGameDiv')
+	//	updateGame.style.display = "none";
 }
 
 function editGame(gameId, game) {
@@ -152,10 +152,7 @@ function editGame(gameId, game) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				data = JSON.parse(xhr.responseText);
-				console.log("calling loadGames line 148");
 				loadGames();
-				console.log("calling displayGameInfo line 150")
-				//		displayGameInfo(data);
 			}
 		}
 	}
@@ -205,7 +202,7 @@ function displayGameInfo(game) {
 
 
 		let deleteButton = document.createElement('button');
-		deleteButton.textContent = "Delete New Game"
+		deleteButton.textContent = "Delete Game"
 		deleteDiv.appendChild(deleteButton);
 		deleteButton.addEventListener('click', function(e) {
 			e.preventDefault();
@@ -213,15 +210,9 @@ function displayGameInfo(game) {
 			console.log(id);
 			deleteGame(id);
 		});
-
-		//		let updateDiv = document.getElementById('updateButton')
-
-		//	let updateButton = document.createElement('button');
-		//	updateButton.textContent = "Update Button";
-		//	updateDiv.appendChild(updateButton);
 		
 		let updateButtonDiv = document.getElementById('updateButton');
-		updateButtonDiv.innerHTML ='';		
+		
 		let updateButton = document.createElement('button');
 		updateButton.textContent = "Update Game";
 		updateButtonDiv.appendChild(updateButton);
@@ -229,16 +220,8 @@ function displayGameInfo(game) {
 			e.preventDefault();
 			let id = game.id;
 			addUpdatedGame(id, game);
-		document.updateGame.reset();
-			})
-		
-		
-		
-	//	document.updateButton.update.addEventListener('click', function(e) {
-	//		e.preventDefault();
-	//		updateGame = document.getElementById('updateGameDiv')
-	//		updateGame.style.display = "inline";
-	//		addUpdatedGame(game.id, game);
-	//	})
+			updateButton.remove();
+			document.updateGame.reset();
+			});
 	}
 }
