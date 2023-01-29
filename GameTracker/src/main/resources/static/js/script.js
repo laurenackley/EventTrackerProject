@@ -127,18 +127,18 @@ function createGame(game) {
 }
 
 function addUpdatedGame(gameId, game) {
-		let passedName = document.updateGame.name.value;
-		let passedDescription = document.updateGame.description.value;
-		let passedPlayerMin = document.updateGame.playerMin.value;
-		let passedPlayerMax = document.updateGame.playerMax.value;
+	let passedName = document.updateGame.name.value;
+	let passedDescription = document.updateGame.description.value;
+	let passedPlayerMin = document.updateGame.playerMin.value;
+	let passedPlayerMax = document.updateGame.playerMax.value;
 
 
-		game.name = passedName;
-		game.description = passedDescription;
-		game.playerMin = passedPlayerMin;
-		game.playerMax = passedPlayerMax;
-		console.log("calling edit game with gameId: " + gameId + " game: " + game);
-		editGame(gameId, game);
+	game.name = passedName;
+	game.description = passedDescription;
+	game.playerMin = passedPlayerMin;
+	game.playerMax = passedPlayerMax;
+	console.log("calling edit game with gameId: " + gameId + " game: " + game);
+	editGame(gameId, game);
 	//	updateGame = document.getElementById('updateGameDiv')
 	//	updateGame.style.display = "none";
 }
@@ -152,6 +152,8 @@ function editGame(gameId, game) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				data = JSON.parse(xhr.responseText);
+				gameList = document.getElementById("gameList");
+				gameList.style.display = "none";
 				loadGames();
 			}
 		}
@@ -210,18 +212,18 @@ function displayGameInfo(game) {
 			console.log(id);
 			deleteGame(id);
 		});
-		
+
 		let updateButtonDiv = document.getElementById('updateButton');
-		
+
 		let updateButton = document.createElement('button');
 		updateButton.textContent = "Update Game";
 		updateButtonDiv.appendChild(updateButton);
-		updateButton.addEventListener('click', function(e){
+		updateButton.addEventListener('click', function(e) {
 			e.preventDefault();
 			let id = game.id;
 			addUpdatedGame(id, game);
 			updateButton.remove();
 			document.updateGame.reset();
-			});
+		});
 	}
 }
