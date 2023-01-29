@@ -90,7 +90,7 @@ public class GameController {
 			if (keywordFind.isEmpty()) {
 				res.setStatus(404);
 			} else {
-				res.setStatus(400);
+				res.setStatus(200);
 			}
 			return keywordFind;
 		} catch (Exception e) {

@@ -58,8 +58,7 @@ public class GameServiceImpl implements GameService {
 
 	@Override
 	public List<Game> searchByKeywordInNameOrDescription(String keyword) {
-		List<Game> searchName = gameRepo.findByNameContaining(keyword);
-		searchName.addAll(gameRepo.findByDescriptionContaining(keyword));
+		List<Game> searchName = gameRepo.findByDescriptionContaining(keyword);
 		return searchName;
 	}
 
