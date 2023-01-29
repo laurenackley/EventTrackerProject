@@ -6,7 +6,6 @@
 | POST      | `/api/games/created`                  | Request Body: JSON of a new `game`                    | JSON of created `game`                                  |
 | PUT       | `/api/games/{gameId}`              | Request Body: JSON of updated `Game` with ID 2        | JSON of updated `Game`                                  |
 | DELETE    | `/api/games/{gameId}`             | Path Variable: `game` ID                              |                                       |
-|      |
 | GET       | `/api/games/search/{keyword}` | Path Variable: Keyword in name or description of game | `List<Game>` of games with that keyword in the name or description |
 
 
