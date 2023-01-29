@@ -70,12 +70,12 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `gamedb`;
-INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (1, 'Settlers of Catan', 'Settle', 3, 6);
-INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (2, 'Gin', 'Card game', 2, 4);
-INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (3, 'Demeo', 'Online DND style', 1, 4);
-INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (4, 'Magic: The Gathering', 'Table top and collectable card game', 2, 4);
-INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (5, 'Mario Party', 'Switch party game', 1, 4);
-INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (6, 'UnRailed!', 'Switch game where you keep building train tracks and manage a train to reach a destination', 1, 4);
+INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (1, 'Settlers of Catan', 'Settlers of Catan is a combination of strategy and resource management. You need the right materials to build houses and roads and gain victory points. The luck of the die throw drives these resources and determines how many settlements and roads you can build, which in turn accrue more resources.', 3, 6);
+INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (2, 'Skip-Bo', 'Sequencing card game where players use skill and strategy to create stacks of sequentially numbered, ascending cards (2,3,4…) until there are no more cards left to play.', 2, 4);
+INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (3, 'Demeo', 'Demeo is a cross-platform cooperative adventure for up to four players that recreates all of the magic and camaraderie of gathering around a tabletop with friends to do battle against the forces of evil.', 1, 4);
+INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (4, 'Magic: The Gathering', 'Table top and collectable card game with multiple different playing formats.', 2, 4);
+INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (5, 'Mario Party', 'Switch party game where you can take turns rolling dice and racing across the game board or team up for partner party!', 1, 4);
+INSERT INTO `game` (`id`, `name`, `description`, `player_minimum`, `player_maximum`) VALUES (6, 'Unrailed!', 'Unrailed! is a co-op multiplayer game where you work together with your friends to build a train track across endless procedurally generated worlds. Master random encounters with its inhabitants, upgrade your train and keep it from derailing!', 1, 4);
 
 COMMIT;
 
