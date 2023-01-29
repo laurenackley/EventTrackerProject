@@ -68,6 +68,7 @@ public class GameController {
 
 	@DeleteMapping("games/{id}")
 	public void deleteGame(@PathVariable("id") int id, HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("********"+id);
 		try {
 			if (gameService.deleteById(id)) {
 				res.setStatus(204);
@@ -77,7 +78,6 @@ public class GameController {
 		} catch (Exception e) {
 			System.err.println(e);
 			res.setStatus(400);
-
 		}
 
 	}

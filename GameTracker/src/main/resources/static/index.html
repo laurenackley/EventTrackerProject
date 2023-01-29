@@ -16,19 +16,18 @@
 <p id="description"></p>
 <p id="playerMin"></p>
 <p id="playerMax"></p>
-
-<form name="delete">
+<div id= "deleteButton"></div>
+<!-- <form name="delete">
     <button type="button" name="delete">Delete</button>
-</form>
-<form name="update"> <button type="button" name="update">Update</button></form>
-<div id="updateGameDiv" style="display:none">
+</form> -->
+<div id="updateGameDiv">
 <form name="updateGame">
-    <label for="name">Updated Name:</label><input type="text" name="name"><br>
+   <label for="name">Updated Name:</label><input type="text" name="name"><br>
     <label for="description">Updated Description:</label><textarea rows="4" cols="50" name="description"></textarea><br>
     <label for="playerMin">Updated Player Minimum:</label><input type="number" name="playerMin"><br>
     <label for="playerMax">Updated Player Maximum:</label><input type="number" name="playerMax"><br>
-    <button type="button" name="update">Update</button>
-</form>
+    </form>
+<div id="updateButton"></div>
 </div>
 </div>
 
@@ -46,7 +45,11 @@
 
 </form>
 
-<div id="searchKeyword">
+<div id="searchKeywordDiv">
+<h3 id="name"></h3>
+<p id="description"></p>
+<p id="playerMin"></p>
+<p id="playerMax"></p>
 <form name="searchKeyword">
 <label for="keyword">Search for a game by keyword:</label>
 <input type="text" name="keyword">

@@ -43,6 +43,11 @@ function init() {
 	});
 }
 
+
+
+
+
+
 function searchKeyword(keyword) {
 	console.log("search keyword");
 	let xhr = new XMLHttpRequest();
@@ -51,7 +56,6 @@ function searchKeyword(keyword) {
 		if (xhr.readyState === 4) {
 			gameResults = JSON.parse(xhr.responseText);
 			console.log("calling display game info line 51");
-			displayGames();
 			displayGameInfo(gameResults);
 		}
 	}
@@ -60,7 +64,7 @@ function searchKeyword(keyword) {
 
 
 function loadGames() {
-console.log("Load games");
+	console.log("Load games");
 	let xhr = new XMLHttpRequest();
 	xhr.open("GET", "api/games");
 	xhr.onreadystatechange = function() {
@@ -77,7 +81,7 @@ console.log("Load games");
 }
 
 function deleteGame(gameId) {
-	console.log("delete games");
+	console.log("delete games" + gameId);
 	let xhr = new XMLHttpRequest();
 	xhr.open("DELETE", "api/games/" + gameId, true);
 	xhr.setRequestHeader("Content-type", "application/json"); // Specify JSON request body
@@ -91,13 +95,13 @@ function deleteGame(gameId) {
 
 				gameList = document.getElementById("gameList");
 				gameList.style.display = "none";
-
+				loadGames();
 			} else {
 				console.log("Couldn't delete");
 			}
 		}
 	};
-	xhr.send(null);
+	xhr.send();
 }
 
 function createGame(game) {
@@ -112,7 +116,7 @@ function createGame(game) {
 				console.log("calling loadGames line 108");
 				loadGames();
 				console.log("calling displayGameInfo with: " + data);
-				displayGameInfo(data);
+				//	displayGameInfo(data);
 			} else if (xhr.status === 404) {
 				displayError("Game not created");
 			}
@@ -123,8 +127,6 @@ function createGame(game) {
 }
 
 function addUpdatedGame(gameId, game) {
-	console.log("addUpdatedGame");
-	document.updateGame.update.addEventListener('click', function() {
 		let passedName = document.updateGame.name.value;
 		let passedDescription = document.updateGame.description.value;
 		let passedPlayerMin = document.updateGame.playerMin.value;
@@ -139,7 +141,6 @@ function addUpdatedGame(gameId, game) {
 		editGame(gameId, game);
 		updateGame = document.getElementById('updateGameDiv')
 		updateGame.style.display = "none";
-	})
 }
 
 function editGame(gameId, game) {
@@ -154,7 +155,7 @@ function editGame(gameId, game) {
 				console.log("calling loadGames line 148");
 				loadGames();
 				console.log("calling displayGameInfo line 150")
-				displayGameInfo(data);
+				//		displayGameInfo(data);
 			}
 		}
 	}
@@ -169,11 +170,15 @@ function displayGames(allGames) {
 	console.log("displayGames");
 	let gameNameDiv = document.getElementById("gameName");
 	gameNameDiv.textContent = '';
+
+
+
 	for (let i = 0; i < allGames.length; i++) {
 		let name = document.createElement("h1");
 		name.id = i;
 		name.addEventListener("click", function() {
 			//let id = e.target.id;
+			console.log(allGames[i])
 			displayGameInfo(allGames[i]);
 		});
 		name.textContent = allGames[i].name;
@@ -194,17 +199,46 @@ function displayGameInfo(game) {
 		playerMin.textContent = "Player Minimum: " + game.playerMin;
 		let playerMax = document.getElementById("playerMax");
 		playerMax.textContent = "Player Maximum: " + game.playerMax;
-		document.delete.addEventListener('click', function(e) {
+
+		let deleteDiv = document.getElementById('deleteButton');
+		deleteDiv.innerHTML = '';
+
+
+		let deleteButton = document.createElement('button');
+		deleteButton.textContent = "Delete New Game"
+		deleteDiv.appendChild(deleteButton);
+		deleteButton.addEventListener('click', function(e) {
 			e.preventDefault();
 			let id = game.id;
 			console.log(id);
 			deleteGame(id);
 		});
-		document.update.addEventListener('click', function(e) {
+
+		//		let updateDiv = document.getElementById('updateButton')
+
+		//	let updateButton = document.createElement('button');
+		//	updateButton.textContent = "Update Button";
+		//	updateDiv.appendChild(updateButton);
+		
+		let updateButtonDiv = document.getElementById('updateButton');
+		updateButtonDiv.innerHTML ='';		
+		let updateButton = document.createElement('button');
+		updateButton.textContent = "Update Game";
+		updateButtonDiv.appendChild(updateButton);
+		updateButton.addEventListener('click', function(e){
 			e.preventDefault();
-			updateGame = document.getElementById('updateGameDiv')
-			updateGame.style.display = "inline";
-			addUpdatedGame(game.id, game);
-		})
+			let id = game.id;
+			addUpdatedGame(id, game);
+		document.updateGame.reset();
+			})
+		
+		
+		
+	//	document.updateButton.update.addEventListener('click', function(e) {
+	//		e.preventDefault();
+	//		updateGame = document.getElementById('updateGameDiv')
+	//		updateGame.style.display = "inline";
+	//		addUpdatedGame(game.id, game);
+	//	})
 	}
 }
