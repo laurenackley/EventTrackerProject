@@ -1,11 +1,17 @@
 <h1>Game Tracker</h1>
 
+<button class="btn btn-info" (click)="display = true">Click to reveal the game with the largest description</button>
+
+<div *ngIf="display">
+  <h1>{{winner.name}}</h1>
+  <button (click)="display=false">Hide</button>
+</div>
+
 <div *ngIf="!selected">
   <ul *ngFor="let game of games">
     <li (click)="displayGame(game)">{{ game.name }}</li>
     <li>Player Minimum: {{ game.playerMin }}</li>
     <li>Player Maximum: {{ game.playerMax }}</li>
-    <button class="btn btn-danger" (click)="deleteGame(game.id)">DELETE</button>
     <hr />
   </ul>
   <form name="newGame">
@@ -17,26 +23,28 @@
     <input type="number" name="playerMin" [(ngModel)]="newGame.playerMin" />
     Player Max:
     <input type="number" name="playerMax" [(ngModel)]="newGame.playerMax" />
-    <button (click)="addGame(newGame)">Add game</button>
-    <hr>
+    <button class="btn btn-success"(click)="addGame(newGame)">Add game</button>
+    <hr />
   </form>
   <form name="search">
+    Search for a game by keyword:
     <input type="text" name="description" [(ngModel)]="keyword" />
-    <button (click)="getGameByKeyword(keyword)">Search</button>
+    <button  class="btn btn-warning"(click)="getGameByKeyword(keyword)">Search</button>
   </form>
+  <div *ngIf="notFound">
+    <h1>No games found with that description!</h1>
+  </div>
 </div>
-
 
 <div *ngIf="selected">
   Name: {{ selected.name }} <br />
   Description: {{ selected.description }}<br />
   Player Minimum:{{ selected.playerMin }} <br />
   Player Maximum: {{ selected.playerMax }} <br />
-  <button (click)="displayTable(selected)">Back</button>
-  <button (click)="setEditGame()">Edit</button>
+  <button class="btn btn-primary"(click)="displayTable(selected)">Back</button>
+  <button class="btn btn-success" (click)="setEditGame()">Edit</button>
+  <button class="btn btn-danger" (click)="deleteGame(game.id)">Delete</button>
 </div>
-
-
 
 <div *ngIf="editGame">
   <input type="text" name="updateGame.name" [(ngModel)]="editGame.name" />
@@ -59,7 +67,8 @@
     [(ngModel)]="editGame.playerMax"
   />
   <button (click)="updateGame(editGame)">Submit</button>
+</div>
 
-
+<div>
 
 </div>

@@ -15,6 +15,12 @@ In the next div you are able to create a new game with a name, description, play
 Next section you are able to search by a keyword in the game's description. For example: if you search the term "party" then Mario Party will be returned with the description, player minimum and maximum.
 For the data aggregation portion of the homework, I added a feature where it will tell you the name of the game with the longest description. As you add new games, or change the description, it will update with the name of the game and it's total character count.
 
+The next week we added on to the project using Angular and creating a different front end. I used the same functionality from the previous week, but updated it using Angular. Now on the home page, it shows the list of games, and options to either add or search from the main page. When clicking on the name of the game it will show further information about the game such as the description.
+After adding you will stay on the main page, but can click on the name of the game for further details. From there you will be able to edit the game or go back.
+When searching, the results will show on the main page as well.
+For data aggregation I left it the same of viewing the game with the longest description, but now it is a button where you can click and then it shows the name of the game, then an option to hide it.
+
+At first doing this project with just JavaScript and having to the XHR requests pretty difficult, but changing the front end to using Angular made this project seem a lot easier.
 # Technologies Used
 - REST
 - SpringToolSuite
@@ -26,3 +32,4 @@ For the data aggregation portion of the homework, I added a feature where it wil
 - SpringBoot
 - Javascript
 - VS Code
+- Angular

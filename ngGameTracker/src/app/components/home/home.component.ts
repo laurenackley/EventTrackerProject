@@ -14,7 +14,12 @@ export class HomeComponent implements OnInit {
   newGame: GameTracker = new GameTracker();
   editGame: GameTracker | null = null;
   game: any;
-keyword: String = '';
+  keyword: String = '';
+  notFound: boolean = false;
+  largest: number =0;
+  winner: any;
+  display = false;
+
   constructor(
     private gameTrackerService: GameTrackerService,
     private route: ActivatedRoute,
@@ -80,19 +85,21 @@ keyword: String = '';
     this.editGame = null;
   }
 
-  getGameByKeyword(keyword: String){
+  getGameByKeyword(keyword: String) {
     return this.gameTrackerService.search(keyword).subscribe({
       next: (foundGames) => {
-        console.log('**********************************')
-        console.log(foundGames)
+        console.log('**********************************');
+        console.log(foundGames);
         this.games = foundGames;
+
         // this.reload();
       },
       error: (err) => {
+        this.notFound = true;
         console.error('Error finding game');
         console.error(err);
-      }
-    })
+      },
+    });
   }
 
   setEditGame() {
@@ -104,6 +111,7 @@ keyword: String = '';
     this.gameTrackerService.index().subscribe({
       next: (gameList) => {
         this.games = gameList;
+        this.descLength(this.games);
       },
       error: (err) => {
         console.error('Error loading game list');
@@ -112,9 +120,19 @@ keyword: String = '';
     });
   }
 
-  deleteGame(id: number){
+  descLength(games: GameTracker[]){
+    for(let i = 0; i < this.games.length; i++){
+      if(this.largest < this.games[i].description.length){
+        this.largest = this.games[i].description.length;
+        this.winner = this.games[i];
+            }
+    }
+    console.log(this.winner);
+  }
+
+  deleteGame(id: number) {
     this.gameTrackerService.delete(id).subscribe({
-      next:(result)=>{
+      next: (result) => {
         this.reload();
       },
       error: (errors) => {
