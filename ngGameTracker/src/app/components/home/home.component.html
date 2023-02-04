@@ -1,0 +1,65 @@
+<h1>Game Tracker</h1>
+
+<div *ngIf="!selected">
+  <ul *ngFor="let game of games">
+    <li (click)="displayGame(game)">{{ game.name }}</li>
+    <li>Player Minimum: {{ game.playerMin }}</li>
+    <li>Player Maximum: {{ game.playerMax }}</li>
+    <button class="btn btn-danger" (click)="deleteGame(game.id)">DELETE</button>
+    <hr />
+  </ul>
+  <form name="newGame">
+    Add a game! Name:
+    <input type="text" name="name" [(ngModel)]="newGame.name" />
+    Description:
+    <input type="text" name="description" [(ngModel)]="newGame.description" />
+    Player Min:
+    <input type="number" name="playerMin" [(ngModel)]="newGame.playerMin" />
+    Player Max:
+    <input type="number" name="playerMax" [(ngModel)]="newGame.playerMax" />
+    <button (click)="addGame(newGame)">Add game</button>
+    <hr>
+  </form>
+  <form name="search">
+    <input type="text" name="description" [(ngModel)]="keyword" />
+    <button (click)="getGameByKeyword(keyword)">Search</button>
+  </form>
+</div>
+
+
+<div *ngIf="selected">
+  Name: {{ selected.name }} <br />
+  Description: {{ selected.description }}<br />
+  Player Minimum:{{ selected.playerMin }} <br />
+  Player Maximum: {{ selected.playerMax }} <br />
+  <button (click)="displayTable(selected)">Back</button>
+  <button (click)="setEditGame()">Edit</button>
+</div>
+
+
+
+<div *ngIf="editGame">
+  <input type="text" name="updateGame.name" [(ngModel)]="editGame.name" />
+  Description:
+  <input
+    type="text"
+    name="updateGame.description"
+    [(ngModel)]="editGame.description"
+  />
+  Player Min:
+  <input
+    type="number"
+    name="updateGame.playerMin"
+    [(ngModel)]="editGame.playerMin"
+  />
+  Player Max:
+  <input
+    type="number"
+    name="updateGame.playerMax"
+    [(ngModel)]="editGame.playerMax"
+  />
+  <button (click)="updateGame(editGame)">Submit</button>
+
+
+
+</div>

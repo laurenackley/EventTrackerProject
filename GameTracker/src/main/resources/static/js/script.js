@@ -194,6 +194,8 @@ function editGame(gameId, game) {
 				gameList = document.getElementById("gameList");
 				gameList.style.display = "none";
 				loadGames();
+			let updateButtonDiv = document.getElementById('updateButton');
+				updateButtonDiv.innerHTML = '';
 			}
 		}
 	}
@@ -247,7 +249,6 @@ function displayGameInfo(game) {
 		});
 
 		let updateButtonDiv = document.getElementById('updateButton');
-
 		let updateButton = document.createElement('button');
 		updateButton.textContent = "Update Game";
 		updateButtonDiv.appendChild(updateButton);
@@ -255,8 +256,8 @@ function displayGameInfo(game) {
 			e.preventDefault();
 			let id = game.id;
 			addUpdatedGame(id, game);
-			updateButton.remove();
 			document.updateGame.reset();
+			updateButton.remove();
 		});
 	}
 }
