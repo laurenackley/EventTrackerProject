@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
       this.gameTrackerService.show(gameId).subscribe({
         next: (game) => {
           this.selected = game;
-          console.log(this.selected);
+          console.log("On init"+this.selected);
         },
         error: (fail) => {
           console.error(fail);
@@ -127,7 +127,7 @@ export class HomeComponent implements OnInit {
         this.winner = this.games[i];
             }
     }
-    console.log(this.winner);
+    console.log("descLength "+this.winner);
   }
 
   deleteGame(id: number) {

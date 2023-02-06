@@ -30,6 +30,7 @@
     Search for a game by keyword:
     <input type="text" name="description" [(ngModel)]="keyword" />
     <button  class="btn btn-warning"(click)="getGameByKeyword(keyword)">Search</button>
+    <button class="btn btn-success" (click)="this.reload()">Show all games</button>
   </form>
   <div *ngIf="notFound">
     <h1>No games found with that description!</h1>
@@ -68,7 +69,9 @@
   />
   <button (click)="updateGame(editGame)">Submit</button>
 </div>
-
 <div>
-
 </div>
+<footer>
+  TEST TEST See my <a href="indexStatic.html"> original HTML/JavaScript project!</a>
+</footer>
+
